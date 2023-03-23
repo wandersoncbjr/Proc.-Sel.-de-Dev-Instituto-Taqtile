@@ -16,6 +16,19 @@
     <img align="center" alt="julio-Js" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/eslint/eslint-original.svg">
 </div>
   
+<br>
+
+## **Instalação** 
+
+- Clonar repositório:
+
+```bash
+$ git clone https://github.com/wandersoncbjr/projeto-taqtile.git
+$ npm install
+$ npm start
+```
+
+<br>
 
 ## :handshake: Colaborador
 
@@ -31,12 +44,3 @@
     </td>
   </tr>
 </table>
-## **Instalação** 
-
-- Clonar repositório:
-
-```bash
-$ git clone https://github.com/wandersoncbjr/projeto-taqtile.git
-$ npm install
-$ npm start
-```
