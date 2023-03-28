@@ -4,44 +4,41 @@ import React from 'react';
 
 function Login() {
   const [mostraError, setMostraError] = useState(false);
-  const [error, setError] = useState('');
+  const [erros, setErros] = useState<string[]>([]);
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    function validacao(email: string, senha: string) {
-      let emailError = '';
-      let senhaError = '';
+    function validacao(email: string, senha: string): string[] {
+      const erros: string[] = [];
 
       if (!email) {
-        emailError = 'O e-mail é obrigatório.';
+        erros.push('O e-mail é obrigatório.');
       } else if (!/\S+@\S+\.\S+/.test(email)) {
-        emailError = 'E-mail inválido.';
+        erros.push('E-mail inválido.');
       }
 
       if (!senha) {
-        senhaError = 'A senha é obrigatória.';
+        erros.push('A senha é obrigatória.');
       } else if (senha.length < 7) {
-        senhaError = 'A senha deve ter pelo menos 7 caracteres.';
+        erros.push('A senha deve ter pelo menos 7 caracteres.');
       } else if (!/[a-zA-Z]/.test(senha) || !/\d/.test(senha)) {
-        senhaError = 'A senha deve ter pelo menos uma letra e um dígito.';
+        erros.push('A senha deve ter pelo menos uma letra e um dígito.');
       }
 
-      if (emailError || senhaError) {
-        return { emailError, senhaError };
-      }
+      return erros;
     }
-
-    const validarError = validacao(email, senha);
-    if (validarError) {
-      setError(validarError.emailError || validarError.senhaError);
+    const erros = validacao(email, senha);
+    if (erros.length > 0) {
+      setErros(erros);
       setMostraError(true);
     } else {
       setMostraError(false);
     }
   }
+  console.log(erros);
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.name === 'email') {
@@ -59,7 +56,11 @@ function Login() {
         </header>
         {mostraError && (
           <div className='error-login'>
-            <p>{error}</p>
+            <ul>
+              {erros.map((erro) => (
+                <li>{erro}</li>
+              ))}
+            </ul>
           </div>
         )}
         <label htmlFor='email'>E-mail</label>
