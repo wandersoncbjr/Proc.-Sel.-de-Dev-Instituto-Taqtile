@@ -23,7 +23,6 @@
   "include": [
     "src",
     ".eslintrc.js",
-    ".eslint.json",
     ".prettierrc.js"
 
   ]
