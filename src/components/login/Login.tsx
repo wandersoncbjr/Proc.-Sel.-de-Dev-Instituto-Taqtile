@@ -2,6 +2,7 @@ import './Login.css';
 import { useState } from 'react';
 import React from 'react';
 import { useMutation, gql } from '@apollo/client';
+import { useNavigate } from 'react-router-dom';
 
 const LOGIN_MUTATION = gql`
   mutation login($login: LoginInput!) {
@@ -12,10 +13,12 @@ const LOGIN_MUTATION = gql`
 `;
 
 function Login() {
-  const [login, { data, error }] = useMutation(LOGIN_MUTATION, {
+  const navigate = useNavigate();
+  const [login, { data, error, loading }] = useMutation(LOGIN_MUTATION, {
     onCompleted: (data) => {
       const key = 'token';
       localStorage.setItem(key, `${data.login.token}`);
+      navigate('/logado');
     },
   });
 
@@ -92,11 +95,16 @@ function Login() {
             <p>{error.message}</p>
           </div>
         ) : null}
+        {loading ? (
+          <div>
+            <p>carregando...</p>
+          </div>
+        ) : null}
         <label htmlFor='email'>E-mail</label>
         <input type='email' value={email} onChange={handleInputChange} name='email' placeholder='Digite seu e-mail' />
         <label htmlFor='senha'>Senha</label>
         <input type='password' value={senha} onChange={handleInputChange} name='senha' placeholder='Digite sua senha' />
-        <input type='submit' value='Acessar' className='btn-login' />
+        <input type='submit' value='Acessar' className='btn-login' disabled={false} />
       </form>
     </div>
   );
