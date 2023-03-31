@@ -4,7 +4,7 @@ import React from 'react';
 import { useMutation, gql } from '@apollo/client';
 
 const LOGIN_MUTATION = gql`
-  mutation ola($login: LoginInput!) {
+  mutation login($login: LoginInput!) {
     login(data: $login) {
       token
     }
@@ -16,7 +16,7 @@ function Login() {
     onCompleted: (data) => {
       const key = 'token';
       localStorage.setItem(key, `${data.login.token}`);
-      console.log('logado');
+      
     },
   });
 
