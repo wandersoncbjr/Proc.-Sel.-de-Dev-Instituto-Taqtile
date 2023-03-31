@@ -1,5 +1,5 @@
 import './Login.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import React from 'react';
 import { useMutation, gql } from '@apollo/client';
 
@@ -12,7 +12,13 @@ const LOGIN_MUTATION = gql`
 `;
 
 function Login() {
-  const [login, { data, error }] = useMutation(LOGIN_MUTATION);
+  const [login, { data, error }] = useMutation(LOGIN_MUTATION, {
+    onCompleted: (data) => {
+      const key = 'token';
+      localStorage.setItem(key, `${data.login.token}`);
+      console.log('logado');
+    },
+  });
 
   const [mostraError, setMostraError] = useState(false);
   const [erros, setErros] = useState<string[]>([]);
@@ -59,14 +65,6 @@ function Login() {
     }
   }
 
-  useEffect(() => {
-    if (data !== undefined) {
-      const key = 'token';
-      localStorage.setItem(key, `${data.login.token}`);
-      console.log('logado');
-    }
-  }, [data]);
-
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     if (event.target.name === 'email') {
       setEmail(event.target.value);
@@ -81,7 +79,7 @@ function Login() {
         <header>
           <h1>Bem vindo(a) à Taqtile!</h1>
         </header>
-        {mostraError && (
+        {mostraError ? (
           <div className='error-login'>
             <ul>
               {erros.map((erro) => (
@@ -89,12 +87,12 @@ function Login() {
               ))}
             </ul>
           </div>
-        )}
-        {error && (
+        ) : null}
+        {error ? (
           <div className='error-login'>
             <p>{error.message}</p>
           </div>
-        )}
+        ) : null}
         <label htmlFor='email'>E-mail</label>
         <input type='email' value={email} onChange={handleInputChange} name='email' placeholder='Digite seu e-mail' />
         <label htmlFor='senha'>Senha</label>
