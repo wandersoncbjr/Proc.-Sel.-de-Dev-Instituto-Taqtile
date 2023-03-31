@@ -16,7 +16,6 @@ function Login() {
     onCompleted: (data) => {
       const key = 'token';
       localStorage.setItem(key, `${data.login.token}`);
-      
     },
   });
 
