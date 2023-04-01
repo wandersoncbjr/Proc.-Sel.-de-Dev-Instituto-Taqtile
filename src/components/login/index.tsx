@@ -1,4 +1,4 @@
-import './Login.css';
+import './index.css';
 import { useState } from 'react';
 import React from 'react';
 import { useMutation, gql } from '@apollo/client';
@@ -18,7 +18,7 @@ function Login() {
     onCompleted: (data) => {
       const key = 'token';
       localStorage.setItem(key, `${data.login.token}`);
-      navigate('/logado');
+      navigate('/home');
     },
   });
 
