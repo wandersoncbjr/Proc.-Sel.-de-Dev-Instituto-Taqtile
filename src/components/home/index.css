@@ -1,0 +1,29 @@
+.container-logado {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 300px);
+  gap: 1rem;
+  height: 100%;
+  min-height: 80vh;
+  align-items: end;
+  justify-content: center;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.container-logado p {
+  padding: 10px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.item-logado {
+  background-color: #edf8fd;
+  border: solid 1px #b5e1f8;
+  border-radius: 10px;
+  transform: scale(0.9);
+  transition: all ease 0.3s;
+}
+
+.item-logado:hover{
+  transform: scale(1);
+}
