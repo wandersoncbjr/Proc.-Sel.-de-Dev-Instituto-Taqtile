@@ -104,7 +104,7 @@ function Login() {
         <input type='email' value={email} onChange={handleInputChange} name='email' placeholder='Digite seu e-mail' />
         <label htmlFor='senha'>Senha</label>
         <input type='password' value={senha} onChange={handleInputChange} name='senha' placeholder='Digite sua senha' />
-        <input type='submit' value='Acessar' className='btn-login' disabled={false} />
+        <input type='submit' value='Acessar' className='btn-login' disabled={loading} />
       </form>
     </div>
   );
