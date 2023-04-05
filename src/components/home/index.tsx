@@ -6,7 +6,10 @@ import { useState } from 'react';
 const GET_USERS = gql`
   query Users($offset: Int, $limit: Int) {
     users(data: { offset: $offset, limit: $limit }) {
-      count
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
       nodes {
         id
         name
@@ -14,6 +17,7 @@ const GET_USERS = gql`
         email
         birthDate
       }
+      count
     }
   }
 `;
@@ -66,8 +70,8 @@ function Logado() {
       <p>
         Página {Math.floor(offset / limit) + 1} de {paginas}
       </p>
-      {offset > 0 ? <button onClick={anterior}>anterior</button> : null}
-      {offset + limit < data?.users?.count ? <button onClick={proximo}>proximo</button> : null}
+      {data?.users?.pageInfo?.hasPreviousPage === true ? <button onClick={anterior}>anterior</button> : null}
+      {data?.users?.pageInfo?.hasNextPage === true ? <button onClick={proximo}>proximo</button> : null}
     </div>
   );
 }
