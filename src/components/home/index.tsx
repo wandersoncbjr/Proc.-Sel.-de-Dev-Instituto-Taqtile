@@ -1,63 +1,53 @@
+import { useNavigate } from 'react-router-dom';
 import './index.css';
+import { useQuery, gql } from '@apollo/client';
 
-const usuarios = [
-  { nome: 'Lara', email: 'lara@example.com' },
-  { nome: 'Renato', email: 'renato@example.com' },
-  { nome: 'Bianca', email: 'bianca@example.com' },
-  { nome: 'Thiago', email: 'thiago@example.com' },
-  { nome: 'Camila', email: 'camila@example.com' },
-  { nome: 'Rafael', email: 'rafael@example.com' },
-  { nome: 'Bruna', email: 'bruna@example.com' },
-  { nome: 'Felipe', email: 'felipe@example.com' },
-  { nome: 'Larissa', email: 'larissa@example.com' },
-  { nome: 'Marcelo', email: 'marcelo@example.com' },
-  { nome: 'Amanda', email: 'amanda@example.com' },
-  { nome: 'Giovanni', email: 'giovanni@example.com' },
-  { nome: 'Mariana', email: 'mariana@example.com' },
-  { nome: 'Alexandre', email: 'alexandre@example.com' },
-  { nome: 'Viviane', email: 'viviane@example.com' },
-  { nome: 'Leonardo', email: 'leonardo@example.com' },
-  { nome: 'Tatiana', email: 'tatiana@example.com' },
-  { nome: 'Matheus', email: 'matheus@example.com' },
-  { nome: 'Gabriela', email: 'gabriela@example.com' },
-  { nome: 'Luiz', email: 'luiz@example.com' },
-  { nome: 'Renata', email: 'renata@example.com' },
-  { nome: 'Daniel', email: 'daniel@example.com' },
-  { nome: 'Helena', email: 'helena@example.com' },
-  { nome: 'Luciana', email: 'luciana@example.com' },
-  { nome: 'Antônio', email: 'antonio@example.com' },
-  { nome: 'Natália', email: 'natalia@example.com' },
-  { nome: 'Roberto', email: 'roberto@example.com' },
-  { nome: 'Márcia', email: 'marcia@example.com' },
-  { nome: 'Diego', email: 'diego@example.com' },
-  { nome: 'Fabiana', email: 'fabiana@example.com' },
-  { nome: 'Daniel', email: 'daniel@example.com' },
-  { nome: 'Helena', email: 'helena@example.com' },
-  { nome: 'Luciana', email: 'luciana@example.com' },
-  { nome: 'Antônio', email: 'antonio@example.com' },
-  { nome: 'Natália', email: 'natalia@example.com' },
-  { nome: 'Roberto', email: 'roberto@example.com' },
-  { nome: 'Márcia', email: 'marcia@example.com' },
-  { nome: 'Diego', email: 'diego@example.com' },
-  { nome: 'Fabiana', email: 'fabiana@example.com' },
-  { nome: 'Daniel', email: 'daniel@example.com' },
-  { nome: 'Helena', email: 'helena@example.com' },
-  { nome: 'Luciana', email: 'luciana@example.com' },
-  { nome: 'Antônio', email: 'antonio@example.com' },
-  { nome: 'Natália', email: 'natalia@example.com' },
-  { nome: 'Roberto', email: 'roberto@example.com' },
-  { nome: 'Márcia', email: 'marcia@example.com' },
-  { nome: 'Diego', email: 'diego@example.com' },
-  { nome: 'Fabiana', email: 'fabiana@example.com' },
-];
-
+const GET_USERS = gql`
+  query Users {
+    users {
+      nodes {
+        id
+        name
+        phone
+        email
+        birthDate
+      }
+    }
+  }
+`;
+interface User {
+  id: string;
+  name: string;
+  phone: string;
+  email: string;
+  birthDate: string;
+}
 function Logado() {
+  const token = localStorage.getItem('token');
+
+  const navigate = useNavigate();
+  const { data } = useQuery(GET_USERS, {
+    variables: {},
+    context: {
+      headers: {
+        Authorization: `${token}`,
+      },
+    },
+  });
+
+  if (!token) {
+    navigate('/login');
+  }
+
   return (
     <div className='container-logado'>
-      {usuarios.map((usuario) => (
+      {data?.users?.nodes?.map((data: User) => (
         <div className='item-logado'>
-          <p>Nome: {usuario.nome}</p>
-          <p>Email: {usuario.email}</p>
+          <p>Nome: {data.name}</p>
+          <p>Email: {data.email}</p>
+          <p>ID: {data.id}</p>
+          <p>Telefone: {data.phone}</p>
+          <p>data de nascimento: {data.birthDate}</p>
         </div>
       ))}
     </div>
