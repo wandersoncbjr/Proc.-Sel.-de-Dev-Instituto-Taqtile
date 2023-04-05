@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import './index.css';
 import { useQuery, gql } from '@apollo/client';
+import { useState } from 'react';
 
 const GET_USERS = gql`
-  query Users {
-    users {
+  query Users($offset: Int, $limit: Int) {
+    users(data: { offset: $offset, limit: $limit }) {
+      count
       nodes {
         id
         name
@@ -22,21 +24,32 @@ interface User {
   email: string;
   birthDate: string;
 }
+
 function Logado() {
   const token = localStorage.getItem('token');
-
   const navigate = useNavigate();
+  const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(8);
   const { data } = useQuery(GET_USERS, {
-    variables: {},
+    variables: { offset: offset, limit: limit },
     context: {
       headers: {
         Authorization: `${token}`,
       },
     },
   });
+  const paginas = Math.ceil(data?.users?.count / limit);
 
-  if (!token || data === undefined) {
+  if (!token) {
     navigate('/login');
+  }
+
+  function proximo() {
+    setOffset(offset + 8);
+  }
+
+  function anterior() {
+    setOffset(offset - 8);
   }
 
   return (
@@ -50,6 +63,11 @@ function Logado() {
           <p>data de nascimento: {data.birthDate}</p>
         </div>
       ))}
+      <p>
+        Página {Math.floor(offset / limit) + 1} de {paginas}
+      </p>
+      {offset > 0 ? <button onClick={anterior}>anterior</button> : null}
+      {offset + limit < data?.users?.count ? <button onClick={proximo}>proximo</button> : null}
     </div>
   );
 }
