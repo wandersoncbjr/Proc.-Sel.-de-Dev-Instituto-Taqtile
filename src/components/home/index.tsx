@@ -35,7 +35,7 @@ function Logado() {
     },
   });
 
-  if (!token || data === undefined) {
+  if (!token) {
     navigate('/login');
   }
 
