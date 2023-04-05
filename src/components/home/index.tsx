@@ -33,7 +33,7 @@ function Logado() {
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
   const [offset, setOffset] = useState(0);
-  const [limit, setLimit] = useState(8);
+  const [limit, setLimit] = useState(15);
   const { data } = useQuery(GET_USERS, {
     variables: { offset: offset, limit: limit },
     context: {
@@ -49,11 +49,11 @@ function Logado() {
   }
 
   function proximo() {
-    setOffset(offset + 8);
+    setOffset(offset + 15);
   }
 
   function anterior() {
-    setOffset(offset - 8);
+    setOffset(offset - 15);
   }
 
   return (
