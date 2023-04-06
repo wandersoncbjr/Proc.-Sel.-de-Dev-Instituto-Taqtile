@@ -1,10 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import './index.css';
 import { useQuery, gql } from '@apollo/client';
+import { useState } from 'react';
 
 const GET_USERS = gql`
-  query Users {
-    users {
+  query Users($offset: Int, $limit: Int) {
+    users(data: { offset: $offset, limit: $limit }) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
       nodes {
         id
         name
@@ -12,6 +17,7 @@ const GET_USERS = gql`
         email
         birthDate
       }
+      count
     }
   }
 `;
@@ -22,21 +28,32 @@ interface User {
   email: string;
   birthDate: string;
 }
+
 function Logado() {
   const token = localStorage.getItem('token');
-
   const navigate = useNavigate();
+  const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(15);
   const { data } = useQuery(GET_USERS, {
-    variables: {},
+    variables: { offset: offset, limit: limit },
     context: {
       headers: {
         Authorization: `${token}`,
       },
     },
   });
+  const paginas = Math.ceil(data?.users?.count / limit);
 
   if (!token) {
     navigate('/login');
+  }
+
+  function proximo() {
+    setOffset(offset + 15);
+  }
+
+  function anterior() {
+    setOffset(offset - 15);
   }
 
   return (
@@ -50,6 +67,11 @@ function Logado() {
           <p>data de nascimento: {data.birthDate}</p>
         </div>
       ))}
+      <p>
+        Página {Math.floor(offset / limit) + 1} de {paginas}
+      </p>
+      {data?.users?.pageInfo?.hasPreviousPage === true ? <button onClick={anterior}>anterior</button> : null}
+      {data?.users?.pageInfo?.hasNextPage === true ? <button onClick={proximo}>proximo</button> : null}
     </div>
   );
 }
