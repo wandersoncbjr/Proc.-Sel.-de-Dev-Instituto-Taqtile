@@ -177,9 +177,15 @@ function Cadastro() {
           <option value='user'>Usuário</option>
         </select>
         <div className='container-botao'>
-          <button type='submit' className='cadastro-btn'>
-            Cadastrar
-          </button>
+          <label htmlFor='role'>Função:</label>
+          <select name='role' value={valorSelecionado} onChange={handleSelectChange}>
+            <option value='' disabled selected>
+              Selecione uma opção
+            </option>
+            <option value='admin'>Administrador</option>
+            <option value='user'>Usuário</option>
+          </select>
+          <input type='submit' value='Cadastrar' className='cadastro-btn' disabled={loading} />
         </div>
       </form>
     </div>
