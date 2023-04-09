@@ -15,13 +15,15 @@ function Cadastro() {
         <input type='password' name='senha' placeholder='Digite sua senha' />
         <label htmlFor='data'>Data de nascimento:</label>
         <input type='date' name='data' />
+        <label htmlFor='role'>Função:</label>
+        <select name='role'>
+          <option value='admin'>Administrador</option>
+          <option value='user'>Usuário</option>
+        </select>
         <div className='container-botao'>
-          <label htmlFor='role'>Função:</label>
-          <select name='role'>
-            <option value='admin'>Administrador</option>
-            <option value='user'>Usuário</option>
-          </select>
-          <input type='submit' value='Cadastrar' className='cadastro-btn' />
+          <button type='submit' className='cadastro-btn'>
+            Cadastrar
+          </button>
         </div>
       </form>
     </div>

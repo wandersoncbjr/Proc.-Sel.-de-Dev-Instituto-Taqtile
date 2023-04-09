@@ -28,7 +28,6 @@
   border-radius: 4px;
   transition: all linear 160ms;
   outline: none;
-
 }
 
 .form-cadastro select {
@@ -67,5 +66,9 @@
 }
 
 .container-botao {
-  width: 96%;
+  width: 100%;
+}
+
+.container-botao button {
+  width: 100%;
 }
