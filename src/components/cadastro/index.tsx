@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import './index.css';
 import { useNavigate } from 'react-router-dom';
+import { Titulo } from '../styles/h1.style';
+import { Button } from '../styles/button.style';
+import { Div, Input, Label, Span } from '../styles/form.style';
 
 function Cadastro() {
   const [mostraError, setMostraError] = useState(false);
@@ -139,22 +142,28 @@ function Cadastro() {
   function handleSelectChange(event: { target: { value: React.SetStateAction<string> } }) {
     setValorSelecionado(event.target.value);
   }
+
   return (
-    <div className='container-cadastro'>
+    <Div>
       <form className='form-cadastro' onSubmit={handleSubmit}>
+        <Titulo>Criar usuário</Titulo>
         {mostraError ? (
-          <div className='error-cadastro'>
-            <ul>
-              {erros.map((erro) => (
-                <li>{erro}</li>
-              ))}
-            </ul>
-          </div>
+          <Span>
+            <div>
+              <ul>
+                {erros.map((erro) => (
+                  <li>{erro}</li>
+                ))}
+              </ul>
+            </div>
+          </Span>
         ) : null}
         {error ? (
-          <div className='error-cadastro'>
-            <p>{error?.graphQLErrors[0].message}</p>
-          </div>
+          <Span>
+            <div>
+              <p>{error?.graphQLErrors[0].message}</p>
+            </div>
+          </Span>
         ) : null}
         {loading ? (
           <div>
@@ -177,7 +186,7 @@ function Cadastro() {
           <option value='user'>Usuário</option>
         </select>
         <div className='container-botao'>
-          <label htmlFor='role'>Função:</label>
+          <Label htmlFor='role'>Função:</Label>
           <select name='role' value={valorSelecionado} onChange={handleSelectChange}>
             <option value='' disabled selected>
               Selecione uma opção
@@ -185,10 +194,10 @@ function Cadastro() {
             <option value='admin'>Administrador</option>
             <option value='user'>Usuário</option>
           </select>
-          <input type='submit' value='Cadastrar' className='cadastro-btn' disabled={loading} />
+          <Button type='submit' value='Cadastrar' className='cadastro-btn' disabled={loading}></Button>
         </div>
       </form>
-    </div>
+    </Div>
   );
 }
 
