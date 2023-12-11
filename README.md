@@ -4,7 +4,7 @@
 
 <h3>Esse é um projeto de Frontend do processo seletivo do instituto taqtile🧑🏿‍💻</h3>
 
-<h4>Esta aplicação permite login, cadastro de novos usuários e exploração de uma lista paginada com detalhes individuais. Além disso, implementei persistência de dados, então você permanece logado mesmo após a primeira vez.
+<h4>Esta aplicação permite login, cadastro de novos usuários e navegação em uma lista paginada com detalhes individuais. Além disso, implementei persistência de dados, então você permanece logado mesmo após a primeira vez.
 </h4>
 
 <br>
