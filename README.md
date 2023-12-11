@@ -20,7 +20,7 @@
 </div>
 <br>
 
-Utilizei GraphQL com Apollo, React, TypeScript, e para manter o código organizado, Prettier. O estilo foi implementado com Styled Components.
+Utilizei GraphQL com Apollo, React, TypeScript, e para manter o código organizado, Prettier. O estilo foi implementado com o Styled Component.
 
 <br>
 
