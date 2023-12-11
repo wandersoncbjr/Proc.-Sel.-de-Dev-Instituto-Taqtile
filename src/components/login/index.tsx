@@ -17,7 +17,7 @@ const LOGIN_MUTATION = gql`
 
 function Login() {
   const navigate = useNavigate();
-  const [login, { data, error, loading }] = useMutation(LOGIN_MUTATION, {
+  const [login, { error, loading }] = useMutation(LOGIN_MUTATION, {
     onCompleted: (data) => {
       const key = 'token';
       localStorage.setItem(key, `${data.login.token}`);
