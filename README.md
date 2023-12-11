@@ -46,6 +46,7 @@ https://github.com/wandersoncbjr/projeto-taqtile/assets/101597114/30eb8466-7691-
 
 
 <br>
+
 ## :handshake: Colaborador
 
 <table>
