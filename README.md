@@ -4,6 +4,10 @@
 
 <h4>Esse é um projeto de Frontend do processo seletivo do instituto taqtile🧑🏿‍💻</h4>
 
+Este web app permite login, cadastro de novos usuários e navegação em uma lista paginada com detalhes individuais. Além disso, implementei persistência de dados, então você permanece logado mesmo após a primeira vez.
+
+
+
 <br>
 
 ## :wrench: Tecnologias utilizadas
