@@ -4,7 +4,7 @@ import './index.css';
 import { useNavigate } from 'react-router-dom';
 import { Titulo } from '../styles/h1.style';
 import { Button } from '../styles/button.style';
-import { Div, Input, Label, Span } from '../styles/form.style';
+import { Div, Label, Span } from '../styles/form.style';
 
 function Cadastro() {
   const [mostraError, setMostraError] = useState(false);
@@ -32,7 +32,7 @@ function Cadastro() {
   const token = localStorage.getItem('token');
   const [Mutation, { error, loading }] = useMutation(CADASTRO_MUTATION, {
     onCompleted: () => {
-      navigate('/home');
+      navigate('/');
     },
     context: {
       headers: {
@@ -66,11 +66,11 @@ function Cadastro() {
         erros.push('Telefone inválido.');
       }
 
-      if (!dataNascimento) {
+      if (!DataNascimento) {
         erros.push('A data de nascimento é obrigatória.');
       } else {
         const hoje = new Date();
-        const data = new Date(dataNascimento);
+        const data = new Date(DataNascimento);
         let idade = hoje.getFullYear() - data.getFullYear();
         const mes = hoje.getMonth() - data.getMonth();
         if (mes < 0 || (mes === 0 && hoje.getDate() < data.getDate())) {
@@ -151,8 +151,8 @@ function Cadastro() {
           <Span>
             <div>
               <ul>
-                {erros.map((erro) => (
-                  <li>{erro}</li>
+                {erros.map((erro, index) => (
+                  <li key={index}>{erro}</li>
                 ))}
               </ul>
             </div>
@@ -179,12 +179,7 @@ function Cadastro() {
         <label htmlFor='senha'>Senha:</label>
         <input type='password' value={senha} onChange={handleInputChange} name='senha' placeholder='Digite sua senha' />
         <label htmlFor='data'>Data de nascimento:</label>
-        <input type='date' name='data' />
-        <label htmlFor='role'>Função:</label>
-        <select name='role'>
-          <option value='admin'>Administrador</option>
-          <option value='user'>Usuário</option>
-        </select>
+        <input type='date' value={dataNascimento} onChange={handleInputChange} name='data' />
         <div className='container-botao'>
           <Label htmlFor='role'>Função:</Label>
           <select name='role' value={valorSelecionado} onChange={handleSelectChange}>

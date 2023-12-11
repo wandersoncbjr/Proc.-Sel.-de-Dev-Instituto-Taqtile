@@ -46,11 +46,12 @@ export const Usuario = styled.div`
   border-radius: 7px;
   padding: 40px;
   box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
-  gap: 5px;
   transition: all ease 2s;
-
   h1 {
     color: #f72585;
     font: bold;
+  }
+  h3 {
+    margin: 12px 0;
   }
 `;
