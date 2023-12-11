@@ -41,7 +41,10 @@ $ npm start
 ## :dart: Status do projeto
 
 <b>projeto online acesse essa url para visualizar a página</b>: https://logintaqtile.netlify.app ✔
-
+<b>Faça o login como adm</b>:{
+email: admin@taqtile.com.br
+senha: 1234qwer
+}
 https://github.com/wandersoncbjr/projeto-taqtile/assets/101597114/30eb8466-7691-45cb-9c50-b97dcee0602d
 
 
